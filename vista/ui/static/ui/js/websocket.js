@@ -3,6 +3,7 @@ var ph = 0
 var ec = 0
 var temperatura = 0
 var nivel = 0
+var url = "ws://192.168.0.99:8000"
 var myChart = new FusionCharts({
     type: 'realtimelinedy',
     dataFormat: 'json',
@@ -158,7 +159,7 @@ var myChart = new FusionCharts({
 
 $(document).ready(function() {
 
-    var socket = new WebSocket('ws://192.168.0.100:8000');
+    var socket = new WebSocket(url);
     socket.onopen = websocket_conexion_ok;
     socket.onmessage = websocket_msj_recibido;
 

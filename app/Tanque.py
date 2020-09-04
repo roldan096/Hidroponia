@@ -174,7 +174,7 @@ class Tanque:
             if self.secuencia_operacion == 0:
                 #-------------------- Validar tratamiento
                 self.variables.update(cancelar_pago=0)
-                self.variables.update(operacion_recarga=0)
+                #self.variables.update(operacion_recarga=0)
                 self.variables.update(estado_operacion=self.estado_operacion)
 
                 invernadero_id = 4
@@ -249,8 +249,8 @@ class Tanque:
             if self.secuencia_operacion == 9:
                 #-------------------- Operacion recarga
                 self.variables.update(operacion_recarga=2)
-                self.variables.update(interfaz=2)
-                operacion_finalizada = self.recargar()
+                #self.variables.update(interfaz=2)
+                #operacion_finalizada = self.recargar()
 
             fecha = time.strftime("%Y-%m-%d %H:%M:%S")
             
@@ -278,7 +278,7 @@ class Tanque:
             self.variables.update(minutos_tratamiento=self.minutos_tratamiento)
             self.variables.update(fecha=fecha)
 
-            self.leer_sensores()
+            self.leer_sensores(11)
             #sensores.update(monto=i)
             #response = cajero.enviar(informacion)
             respuesta = self.enviar(self.variables)
@@ -601,8 +601,9 @@ class Tanque:
     def configurar_dispositivos(self):
         return 1
     
-    def leer_sensores(self):
+    def leer_sensores(self,ids):
         contador = 0
+        print("IDS",ids)
         #print(self.puerto.puertoAbierto)
         for i,sensor in enumerate(self.sensor):
             if sensor['tipo'] == "NIVEL":
@@ -617,10 +618,11 @@ class Tanque:
         if self.puerto.puertoAbierto:
             #while contador <= 1:
             #print ("{}: Deshabilitando".format(self))
-            a = "&{},{},{}*".format(1,'sensores',1)
+
+            a = "&{},{},{}*".format(1,'sensores',ids)
             #a = "&{},{},{}*".format(5,'extraer',2000)
             #a = "&{},{},{}*".format(9,'dosificar',9)
-            #print(a.encode())
+            print(a.encode())
             self.puerto.write(a.encode())
             time.sleep(.025)
             #time.sleep(1)
@@ -815,13 +817,21 @@ class Tanque:
     def validar_respuesta(self,respuesta):
         #print("Respuesta: ",respuesta['status'])
         #print("Respuesta: ",type(respuesta),respuesta)
-        """ 
-        if respuesta['cancelar_pago'] == 1:
-            self.secuencia_operacion = 6
+        
+        #if respuesta['cancelar_pago'] == 1:
+        #    self.secuencia_operacion = 6
             
-        if respuesta['operacion_recarga'] == 1:
-            self.secuencia_operacion = 9
-        """
+        try:
+            #print("Respuesta: ",type(respuesta),respuesta)
+            if respuesta['operacion_recarga'] == 1:
+                time.sleep(.1)
+                self.leer_sensores(15)
+                self.variables.update(operacion_recarga=2)
+            else:
+                self.variables.update(operacion_recarga=0)
+
+        except:
+            pass
         #if respuesta['descuento'] > 0:
         #    self.descuento = respuesta['descuento']
         return 1
