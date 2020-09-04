@@ -3,7 +3,7 @@ Description=Aplicacion para control del agua
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/pi/Hidroponia/app.sh
+ExecStart=/bin/bash /home/pi/hidro/app.sh
 
 [Install]
 WantedBy=multi-user.target
