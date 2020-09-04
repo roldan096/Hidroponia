@@ -3,7 +3,7 @@ var ph = 0
 var ec = 0
 var temperatura = 0
 var nivel = 0
-var url = "ws://192.168.0.99:8000"
+var url = "ws://192.168.0.100:8000"
 var myChart = new FusionCharts({
     type: 'realtimelinedy',
     dataFormat: 'json',
