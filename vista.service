@@ -3,7 +3,7 @@ Description=Servidor Django para despliegue de vistas y base de datos
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/pi/Hidroponia/vista.sh
+ExecStart=/bin/bash /home/pi/hidro/vista.sh
 
 [Install]
 WantedBy=multi-user.target
