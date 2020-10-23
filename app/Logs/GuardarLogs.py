@@ -60,8 +60,8 @@ class GuardarLogs ():
                 self.archivo.close()
                 self.numeroConsecutivo +=1
 
-                if (self.numeroConsecutivo > 100):  # evita que se creen mas de 100 archivos
-                    aux_0 = 0 
+                #if (self.numeroConsecutivo > 100):  # evita que se creen mas de 100 archivos
+                #    aux_0 = 0 
                 #self.separarNombreNumero()
             except IOError:
                 #print ("El archivo no existe", file = sys.stderr)
